@@ -7,55 +7,74 @@
 
 namespace phtml {
 
+enum CssEnumeration {
+	/* ==== Inheriting ==== */
+	CssInitial,
+	CssInherit,
+
+	/* ==== Display ==== */
+	CssInline,
+	CssBlock,
+	CssInlineBlock,
+	CssNone,
+};
+
 // Types of CSS properties.
 enum PropertyType {
-    // Enumeration (from a global table of all keywords).
-    PropEnum,
-    // Numbers stored as float.
-    PropNumeric,
-    // Colors stored as pax_col_t.
-    PropColor,
-    // Strings stored as char *.
-    PropString,
-    // Font stored as pax_font_t *.
-    PropFont,
+	// Enumeration (from a global table of all keywords).
+	PropEnum,
+	// Numbers stored as float.
+	PropNumeric,
+	// Colors stored as pax_col_t.
+	PropColor,
+	// Strings stored as char *.
+	PropString,
+	// Font stored as pax_font_t *.
+	PropFont,
 };
 
 // Recognised CSS properties.
 enum Properties {
-    // Background color.
-    BackgroundColor,
-    
-    // Text color.
-    Color,
-    // Text font.
-    FontFamily,
-    // Text size.
-    FontSize,
-    
-    // Display type.
-    Display,
-    // Top offset.
-    Top,
-    // Left offset.
-    Left,
-    // Bottom offset.
-    Bottom,
-    // Right offset.
-    Right,
-    
-    // Minimum width.
-    MinWidth,
-    // Maximum width.
-    MaxWidth,
-    // Minimum Height.
-    MinHeight,
-    // Maximum Height.
-    MaxHeight,
+	// Background color.
+	BackgroundColor,
+	
+	// Text color.
+	Color,
+	// Text font.
+	FontFamily,
+	// Text size.
+	FontSize,
+	
+	// Display type.
+	Display,
+	// Top offset.
+	Top,
+	// Left offset.
+	Left,
+	// Bottom offset.
+	Bottom,
+	// Right offset.
+	Right,
+	
+	// Minimum width.
+	MinWidth,
+	// Maximum width.
+	MaxWidth,
+	// Minimum Height.
+	MinHeight,
+	// Maximum Height.
+	MaxHeight,
 };
 
-// A CSS property.
+// The value of a CSS property.
 class Property {
+	private:
+		// The type stored.
+		PropertyType type;
+		// The value stored.
+		char        *strval;
+		// The value stored.
+		pax_font_t  *fontval;
 	public:
 		// Set as string.
 		void        setStr(char *newValue);
@@ -78,9 +97,9 @@ class Property {
 
 // A style to apply to an element.
 class Style {
-    private:
-        // Parent style.
-        Style *parent;
+	private:
+		// Parent style.
+		Style *parent;
 	public:
 		// Operator to index a property by name.
 		Property &operator[](char *name);
